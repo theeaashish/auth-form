@@ -2,7 +2,23 @@ import React from "react";
 
 const SignUp = () => {
   return (
-    <div className="w-full h-screen text-white flex flex-col items-center justify-center gap-10">
+    <div className="w-full h-screen text-white flex flex-col items-center justify-center gap-10 relative">
+      <img
+        className="w-[269px] h-[299px] absolute left-6 top-4"
+        src="/images/circle-shape3.svg"
+        alt="circle-shape"
+      />
+      <img
+        className="w-[229px] h-[249px] absolute right-6 top-60"
+        src="/images/circle-shape2.svg"
+        alt="circle-shape"
+      />
+      <img
+        className="w-[229px] h-[249px] absolute left-6 bottom-0"
+        src="/images/circle-shape1.svg"
+        alt="circle-shape"
+      />
+
       <div className="flex items-center justify-center gap-6">
         <div className="bg-[#4AB7F0] rounded-full w-[73px] h-[73px]"></div>
         <h1 className="text-4xl font-bold">

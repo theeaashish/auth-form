@@ -4,7 +4,7 @@
 :root {
   --primary-bg: #161831;
   --secondry-text: #2C77EB;
-  --gradient-bg: linear-gradient(90deg, rgba(44,119,235,1) 0%, rgba(74,183,240,1) 100%);
+  --gradient-bg: linear-gradient(90deg,_rgba(44,119,235,1)_0%,_rgba(74,183,240,1)_100%);
   --input-bg: #272A4D;
 }
 
@@ -29,5 +29,8 @@ input:-webkit-autofill:active {
   }
   .input-field {
     @apply w-full h-full text-base placeholder-zinc-400 font-semibold outline-none bg-transparent;
+  }
+  .btn-primary {
+    @apply flex bg-[var(--input-bg)] w-full h-[64px] rounded-[8px] items-center justify-center gap-3 font-semibold border-2 border-gray-500 cursor-pointer hover:bg-transparent transition-all;
   }
 }

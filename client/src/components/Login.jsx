@@ -1,44 +1,40 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Input from "./Input";
 import SocialBtn from "./SocialBtn";
 import MainBtn from "./MainBtn";
 
 
-const SignUp = () => {
+const Login = () => {
 
-  const navigate = useNavigate();
-  
-  const [data, setData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-  });
-
-  const [error, setError] = useState("");
-  
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value});
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await "http://localhost:3000/api/users";
-      const { data: res } = await axios.post(response, data);
-      navigate("/login");
-      console.log(res.message);
+    const [data, setData] = useState({
+        email: "",
+        password: "",
+      });
+    
+      const [error, setError] = useState("");
       
-    } catch (error) {
-      if (error.response &&  error.response.status >= 400 && error.response.status <= 500) {
-        setError(error.response.data.message);
+      const handleChange = (e) => {
+        setData({ ...data, [e.target.name]: e.target.value});
       }
-    }
-  }
-  
-
+    
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const response = await "http://localhost:3000/api/auth";
+          const { data: res } = await axios.post(response, data);
+          localStorage.setItem("token", res.data);
+          window.location = "/";
+          console.log(res.message);
+          
+        } catch (error) {
+          if (error.response &&  error.response.status >= 400 && error.response.status <= 500) {
+            setError(error.response.data.message);
+          }
+        }
+      }
   return (
     <div className="w-full h-screen text-white flex flex-col items-center justify-center gap-10 relative">
       <img
@@ -60,13 +56,12 @@ const SignUp = () => {
       <div className="flex items-center justify-center gap-6">
         <div className="bg-[#4AB7F0] rounded-full w-[73px] h-[73px]"></div>
         <h1 className="text-4xl font-bold">
-          Welcome to Sign Up{" "}
+          Welcome to Sign In{" "}
           <span className="text-[var(--secondry-text)]"> Buddy! </span>
         </h1>
       </div>
 
       <form className="flex flex-col w-full items-center gap-6" onSubmit={handleSubmit}>
-        <Input src="/images/person.svg" alt="user" type="text" name="fullName" value={data.fullName} onChange={handleChange} placeholder="Enter your Full Name"/>
         <Input src="/images/mail.svg" alt="mail" type="email" name="email" value={data.email} onChange={handleChange} placeholder="Enter your Email"/>
         <Input src="/images/lock.svg" alt="password" type="password" name="password" value={data.password} onChange={handleChange} placeholder="Enter your password"/>
 
@@ -90,12 +85,12 @@ const SignUp = () => {
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <MainBtn type="submit" name="Sign Up"/>
+        <MainBtn type="submit" name="Sign In"/>
 
         <div className="flex gap-3 items-center justify-center">
-          <h5>Don’t have an account?</h5>
-          <Link to="/login">
-            <span className="text-base font-semibold text-[var(--secondry-text)] cursor-pointer">Sign In</span>
+          <h5>New Here?</h5>
+          <Link to="/signup">
+            <span className="text-base font-semibold text-[var(--secondry-text)] cursor-pointer">Sign Up</span>
           </Link>
         </div>
 
@@ -111,7 +106,7 @@ const SignUp = () => {
           </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default Login
